@@ -1,2 +1,16 @@
-# storm-lite
-The Python version of Apache Storm, for fun
+# Storm-lite
+
+A lightweight version of [Apache Storm](http://storm.apache.org/), purely written in Python, just for fun!
+
+
+Architecture
+============
+
+
+Nimbus
+------
+...
+
+Supervisor
+----------
+...
