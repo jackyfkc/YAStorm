@@ -5,9 +5,9 @@ Refers to Apache Storm, storm/storm-core/src/jvm/org/apache/storm/task/
 
 class IBolt(object):
     def prepare(self, storm_conf, context, collector):
-        """ It provides the bolt with the environment in which the bolt executes.
-
-        Called when a task for this component is initialized within a worker on the cluster.
+        """ It provides the bolt with the environment in which
+        the bolt executes. Called when a task for this component is initialized
+        within a worker on the cluster.
 
         :param storm_conf: The storm configuration for this bolt
         :param context: This object can be used to get information about this
@@ -17,7 +17,7 @@ class IBolt(object):
                Tuples can be emitted at any time, including the prepare and
                cleanup methods. The collector is thread-safe and should be
                saved as an instance variable of this bolt object.
-        :return: void
+        :return: Void
         """
         raise NotImplementedError()
 
@@ -25,7 +25,7 @@ class IBolt(object):
         """ Process a single tuple of input
 
         :param input: The input tuple to be processed
-        :return: void
+        :return: Void
         """
         raise NotImplementedError()
 
@@ -34,6 +34,6 @@ class IBolt(object):
             that the cleanup will be called, because the supervisor kill -9's
             worker processes on the cluster
 
-        :return: void
+        :return: Void
         """
         raise NotImplementedError()

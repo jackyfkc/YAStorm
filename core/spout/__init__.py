@@ -24,7 +24,7 @@ class ISpout(object):
     will not track the message and the spout will not receive any ack or
     fail callbacks for the message.
 
-    Storm executes ack, fail, and nextTuple all on the same thread. This means
+    Storm executes ack, fail, and next_tuple all on the same thread. This means
     that an implementor of an ISpout does not need to worry about
     concurrency issues between those methods. However, it also means that
     an implementor must ensure that nextTuple is non-blocking: otherwise
@@ -92,6 +92,7 @@ class ISpout(object):
         implementation of this method will take that message off the queue
         and prevent it from being replayed.
 
+        :param msg_id: Any type
         :return: Void
         """
         raise NotImplementedError()
