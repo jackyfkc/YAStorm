@@ -14,3 +14,9 @@ Nimbus
 Supervisor
 ----------
 ...
+
+
+Internals
+---------
+
+https://github.com/apache/storm/blob/v1.0.0/storm-core/src/clj/org/apache/storm/daemon/acker.clj

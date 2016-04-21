@@ -1,35 +1,35 @@
-class Tuple(object):
-    def getSourceGlobalStreamId(self):
-        """ Returns the global stream id (component + stream) of this tuple
+class ITuple(object):
+    def get_source_global_stream_id(self):
+        """ returns the global stream id (component + stream) of this tuple
 
         :return: GlobalStreamId
         """
-        pass
+        raise NotImplementedError()
 
-    def getSourceComponent(self):
-        """ Gets the id of the component that created this tuple
+    def get_source_component(self):
+        """ gets the id of the component that created this tuple
 
-        :return: String
+        :return: string
         """
-        pass
+        raise NotImplementedError()
 
-    def getSourceTask(self):
-        """ Gets the id of the task that created this tuple
+    def get_source_task(self):
+        """ gets the id of the task that created this tuple
 
         :return: int
         """
-        pass
+        raise NotImplementedError()
 
-    def getSourceStreamId(self):
-        """ Get the id of the stream that this tuple was emitted to
+    def get_source_stream_id(self):
+        """ get the id of the stream that this tuple was emitted to
 
-        :return:
+        :return: int
         """
-        pass
+        raise NotImplementedError()
 
-    def getMessageId(self):
-        """ Gets the message id that associated with this tuple
+    def get_message_id(self):
+        """ gets the message id that associated with this tuple
 
-        :return:
+        :return: int
         """
-        pass
+        raise NotImplementedError()
