@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+
+
 class ITuple(object):
     def get_source_global_stream_id(self):
         """ returns the global stream id (component + stream) of this tuple
