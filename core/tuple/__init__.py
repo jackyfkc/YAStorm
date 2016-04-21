@@ -1,3 +1,8 @@
+"""
+Implementation of Storms's tuple data model
+"""
+
+
 class Fields(object):
     def __init__(self, fields):
         self._fields = fields
@@ -65,8 +70,13 @@ class MessageId(object):
 class Values(tuple):
     """A convenience class for making tuple values using new Values("field1", 2, 3)
 
-    >>>Values("field1", 2, 3)
+    >>> Values("field1", 2, 3)
     ("field1", 2, 3)
     """
     def __new__(cls, *args):
         return tuple(args)
+
+
+if __name__ == '__main__':
+    import doctest
+    doctest.DocTestSuite()

@@ -19,11 +19,11 @@ struct NullStruct {
 struct GlobalStreamId {
   1: required string componentId;
   2: required string streamId;
-  #Going to need to add an enum for the stream type (NORMAL or FAILURE)
+  # Going to need to add an enum for the stream type (NORMAL or FAILURE)
 }
 
 union Grouping {
-  1: list<string> fields; //empty list means global grouping
+  1: list<string> fields; // empty list means global grouping
   2: NullStruct shuffle; // tuple is sent to random task
   3: NullStruct all; // tuple is sent to every task
   4: NullStruct none; // tuple is sent to a single task (storm's choice) -> allows storm to optimize the topology by bundling tasks into a single process
@@ -45,15 +45,15 @@ struct ShellComponent {
 }
 
 union ComponentObject {
-  1: binary serialized_java;
+  1: binary serialized_python;
   2: ShellComponent shell;
-  3: PythonObject java_object;
+  3: PythonObject python_object;
 }
 
 struct ComponentCommon {
   1: required map<GlobalStreamId, Grouping> inputs;
-  2: required map<string, StreamInfo> streams; //key is stream id
-  3: optional i32 parallelism_hint; //how many threads across the cluster should be dedicated to this component
+  2: required map<string, StreamInfo> streams; // key is stream id
+  3: optional i32 parallelism_hint; // how many threads across the cluster should be dedicated to this component
 
   // component specific configuration respects:
   // topology.debug: false
@@ -85,7 +85,7 @@ struct StateSpoutSpec {
 }
 
 struct StormTopology {
-  //ids must be unique across maps
+  // ids must be unique across maps
   // #workers to use is in conf
   1: required map<string, SpoutSpec> spouts;
   2: required map<string, Bolt> bolts;
@@ -158,7 +158,7 @@ struct NimbusSummary {
 
 struct ClusterSummary {
   1: required list<SupervisorSummary> supervisors;
-  //@deprecated, please use nimbuses.uptime_secs instead.
+  // @deprecated, please use nimbuses.uptime_secs instead.
   2: optional i32 nimbus_uptime_secs = 0;
   3: required list<TopologySummary> topologies;
   4: required list<NimbusSummary> nimbuses;
@@ -347,6 +347,7 @@ enum TopologyInitialStatus {
     ACTIVE = 1,
     INACTIVE = 2
 }
+
 struct SubmitOptions {
   1: required TopologyInitialStatus initial_status;
   2: optional Credentials creds;
@@ -410,6 +411,7 @@ struct WorkerResources {
     2: optional double mem_off_heap;
     3: optional double cpu;
 }
+
 struct Assignment {
     1: required string master_code_dir;
     2: optional map<string, string> node_host = {};
@@ -438,7 +440,7 @@ struct StormBase {
     5: optional i32 launch_time_secs;
     6: optional string owner;
     7: optional TopologyActionOptions topology_action_options;
-    8: optional TopologyStatus prev_status;//currently only used during rebalance action.
+    8: optional TopologyStatus prev_status; // currently only used during rebalance action.
     9: optional map<string, DebugOptions> component_debug; // topology/component level debug option.
 }
 
@@ -556,45 +558,61 @@ struct TopologyHistoryInfo {
 }
 
 service Nimbus {
-  void submitTopology(1: string name, 2: string uploadedJarLocation, 3: string jsonConf, 4: StormTopology topology) throws (1: AlreadyAliveException e, 2: InvalidTopologyException ite, 3: AuthorizationException aze);
-  void submitTopologyWithOpts(1: string name, 2: string uploadedJarLocation, 3: string jsonConf, 4: StormTopology topology, 5: SubmitOptions options) throws (1: AlreadyAliveException e, 2: InvalidTopologyException ite, 3: AuthorizationException aze);
+  void submitTopology(1: string name, 2: string uploadedJarLocation,
+                    3: string jsonConf, 4: StormTopology topology)
+          throws (1: AlreadyAliveException e, 2: InvalidTopologyException ite, 3: AuthorizationException aze);
+  void submitTopologyWithOpts(1: string name, 2: string uploadedJarLocation,
+                        3: string jsonConf, 4: StormTopology topology, 5: SubmitOptions options)
+          throws (1: AlreadyAliveException e, 2: InvalidTopologyException ite, 3: AuthorizationException aze);
   void killTopology(1: string name) throws (1: NotAliveException e, 2: AuthorizationException aze);
-  void killTopologyWithOpts(1: string name, 2: KillOptions options) throws (1: NotAliveException e, 2: AuthorizationException aze);
+  void killTopologyWithOpts(1: string name, 2: KillOptions options)
+          throws (1: NotAliveException e, 2: AuthorizationException aze);
   void activate(1: string name) throws (1: NotAliveException e, 2: AuthorizationException aze);
   void deactivate(1: string name) throws (1: NotAliveException e, 2: AuthorizationException aze);
-  void rebalance(1: string name, 2: RebalanceOptions options) throws (1: NotAliveException e, 2: InvalidTopologyException ite, 3: AuthorizationException aze);
+  void rebalance(1: string name, 2: RebalanceOptions options)
+        throws (1: NotAliveException e, 2: InvalidTopologyException ite, 3: AuthorizationException aze);
 
   // dynamic log levels
   void setLogConfig(1: string name, 2: LogConfig config);
   LogConfig getLogConfig(1: string name);
 
   /**
-  * Enable/disable logging the tuples generated in topology via an internal EventLogger bolt. The component name is optional
+  * Enable/disable logging the tuples generated in topology via an internal EventLogger bolt.
+  * The component name is optional
   * and if null or empty, the debug flag will apply to the entire topology.
   *
   * The 'samplingPercentage' will limit loggging to a percentage of generated tuples.
   **/
-  void debug(1: string name, 2: string component, 3: bool enable, 4: double samplingPercentage) throws (1: NotAliveException e, 2: AuthorizationException aze);
+  void debug(1: string name, 2: string component, 3: bool enable, 4: double samplingPercentage)
+       throws (1: NotAliveException e, 2: AuthorizationException aze);
 
   // dynamic profile actions
   void setWorkerProfiler(1: string id, 2: ProfileRequest  profileRequest);
-  list<ProfileRequest> getComponentPendingProfileActions(1: string id, 2: string component_id, 3: ProfileAction action);
+  list<ProfileRequest> getComponentPendingProfileActions(
+           1: string id, 2: string component_id, 3: ProfileAction action);
 
-  void uploadNewCredentials(1: string name, 2: Credentials creds) throws (1: NotAliveException e, 2: InvalidTopologyException ite, 3: AuthorizationException aze);
+  void uploadNewCredentials(1: string name, 2: Credentials creds)
+        throws (1: NotAliveException e, 2: InvalidTopologyException ite, 3: AuthorizationException aze);
 
-  string beginCreateBlob(1: string key, 2: SettableBlobMeta meta) throws (1: AuthorizationException aze, 2: KeyAlreadyExistsException kae);
+  string beginCreateBlob(1: string key, 2: SettableBlobMeta meta)
+        throws (1: AuthorizationException aze, 2: KeyAlreadyExistsException kae);
   string beginUpdateBlob(1: string key) throws (1: AuthorizationException aze, 2: KeyNotFoundException knf);
   void uploadBlobChunk(1: string session, 2: binary chunk) throws (1: AuthorizationException aze);
   void finishBlobUpload(1: string session) throws (1: AuthorizationException aze);
   void cancelBlobUpload(1: string session) throws (1: AuthorizationException aze);
-  ReadableBlobMeta getBlobMeta(1: string key) throws (1: AuthorizationException aze, 2: KeyNotFoundException knf);
-  void setBlobMeta(1: string key, 2: SettableBlobMeta meta) throws (1: AuthorizationException aze, 2: KeyNotFoundException knf);
-  BeginDownloadResult beginBlobDownload(1: string key) throws (1: AuthorizationException aze, 2: KeyNotFoundException knf);
+  ReadableBlobMeta getBlobMeta(1: string key)
+       throws (1: AuthorizationException aze, 2: KeyNotFoundException knf);
+  void setBlobMeta(1: string key, 2: SettableBlobMeta meta)
+        throws (1: AuthorizationException aze, 2: KeyNotFoundException knf);
+  BeginDownloadResult beginBlobDownload(1: string key)
+       throws (1: AuthorizationException aze, 2: KeyNotFoundException knf);
   binary downloadBlobChunk(1: string session) throws (1: AuthorizationException aze);
   void deleteBlob(1: string key) throws (1: AuthorizationException aze, 2: KeyNotFoundException knf);
-  ListBlobsResult listBlobs(1: string session); //empty string "" means start at the beginning
+  ListBlobsResult listBlobs(1: string session); // empty string "" means start at the beginning
   i32 getBlobReplication(1: string key) throws (1: AuthorizationException aze, 2: KeyNotFoundException knf);
-  i32 updateBlobReplication(1: string key, 2: i32 replication) throws (1: AuthorizationException aze, 2: KeyNotFoundException knf);
+  i32 updateBlobReplication(1: string key, 2: i32 replication)
+          throws (1: AuthorizationException aze, 2: KeyNotFoundException knf);
+
   void createStateInZookeeper(1: string key); // creates state in zookeeper when blob is uploaded through command line
 
   // need to add functions for asking about status of storms, what nodes they're running on, looking at task logs
@@ -612,14 +630,20 @@ service Nimbus {
   string getNimbusConf() throws (1: AuthorizationException aze);
   // stats functions
   ClusterSummary getClusterInfo() throws (1: AuthorizationException aze);
+
   TopologyInfo getTopologyInfo(1: string id) throws (1: NotAliveException e, 2: AuthorizationException aze);
-  TopologyInfo getTopologyInfoWithOpts(1: string id, 2: GetInfoOptions options) throws (1: NotAliveException e, 2: AuthorizationException aze);
-  TopologyPageInfo getTopologyPageInfo(1: string id, 2: string window, 3: bool is_include_sys) throws (1: NotAliveException e, 2: AuthorizationException aze);
-  ComponentPageInfo getComponentPageInfo(1: string topology_id, 2: string component_id, 3: string window, 4: bool is_include_sys) throws (1: NotAliveException e, 2: AuthorizationException aze);
-  //returns json
+  TopologyInfo getTopologyInfoWithOpts(1: string id, 2: GetInfoOptions options)
+                 throws (1: NotAliveException e, 2: AuthorizationException aze);
+  TopologyPageInfo getTopologyPageInfo(1: string id, 2: string window, 3: bool is_include_sys)
+                 throws (1: NotAliveException e, 2: AuthorizationException aze);
+  ComponentPageInfo getComponentPageInfo(1: string topology_id, 2: string component_id,
+                                 3: string window, 4: bool is_include_sys)
+                    throws (1: NotAliveException e, 2: AuthorizationException aze);
+  // returns json
   string getTopologyConf(1: string id) throws (1: NotAliveException e, 2: AuthorizationException aze);
   /**
-   * Returns the compiled topology that contains ackers and metrics consumsers. Compare {@link #getUserTopology(String id)}.
+   * Returns the compiled topology that contains ackers and metrics consumsers.
+   * Compare {@link #getUserTopology(String id)}.
    */
   StormTopology getTopology(1: string id) throws (1: NotAliveException e, 2: AuthorizationException aze);
   /**
@@ -639,7 +663,8 @@ exception DRPCExecutionException {
 }
 
 service DistributedRPC {
-  string execute(1: string functionName, 2: string funcArgs) throws (1: DRPCExecutionException e, 2: AuthorizationException aze);
+  string execute(1: string functionName, 2: string funcArgs)
+       throws (1: DRPCExecutionException e, 2: AuthorizationException aze);
 }
 
 service DistributedRPCInvocations {
