@@ -1,6 +1,3 @@
-
-namespace java org.apache.storm.generated
-
 union PythonObjectArg {
   1: i32 int_arg;
   2: i64 long_arg;
