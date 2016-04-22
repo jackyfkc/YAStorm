@@ -1,6 +1,5 @@
-from core.spout.interfaces import ISpout
-
-from bolt import IBolt
+from spout.interfaces import ISpout
+from bolt.interfaces import IBolt
 
 
 class IComponent(object):
