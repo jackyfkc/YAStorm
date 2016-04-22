@@ -43,14 +43,14 @@ It also monitors the health of the workers and respawns them if necessary.
 
 
 Internals
----------
+=========
 
 **Acker**
 https://github.com/apache/storm/blob/v1.0.0/storm-core/src/clj/org/apache/storm/daemon/acker.clj
 
 
 References
-----------
+==========
 + [Storm Concepts](http://storm.apache.org/releases/1.0.0/Concepts.html)
 + [Storm Code Structure](http://storm.apache.org/releases/1.0.0/Structure-of-the-codebase.html)
 + Storm - Distributed and fault-tolerant realtime computation, Nathan Marz
