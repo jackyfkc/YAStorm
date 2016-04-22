@@ -51,6 +51,7 @@ https://github.com/apache/storm/blob/v1.0.0/storm-core/src/clj/org/apache/storm/
 
 References
 ==========
++ [History of Apache Storm and lessons learned](http://nathanmarz.com/blog/history-of-apache-storm-and-lessons-learned.html)
 + [Storm Concepts](http://storm.apache.org/releases/1.0.0/Concepts.html)
 + [Storm Code Structure](http://storm.apache.org/releases/1.0.0/Structure-of-the-codebase.html)
 + Storm - Distributed and fault-tolerant realtime computation, Nathan Marz
