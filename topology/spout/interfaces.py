@@ -77,11 +77,13 @@ class ISpout(object):
     def next_tuple(self):
         """ Called when Storm is requesting that the Spout emit tuples to the
         output collector. This method should be non-blocking, so if the Spout
-        has to tuples to emit, this method should return. next_tuple, ack and
+        has no tuples to emit, this method should return. next_tuple, ack and
         fail are called in a tight loop in a single thread in the spout task.
 
         When there are no tuple to emit, it is courteous to have next_tuple
         sleep for a short amount of time so as not to waste too much CPU.
+        The time interval is specified by
+        `topology.sleep.spout.wait.strategy.time.ms`
 
         :return: Void
         """
