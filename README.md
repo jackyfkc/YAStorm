@@ -1,29 +1,34 @@
-writting...
+Writting...
 
 
 # PStorm
 
-A lightweight version of [Apache Storm](http://storm.apache.org/), purely written in Python, just for fun!
+A lightweight version of [Apache Storm](http://storm.apache.org/), purely written in Python;
+The primary reason of implementing this project is to make learning Storm much eaiser. The
+implementations refers to Apache Storm v1.0.0.
 
-Refers to Apache Storm v1.0.0
+You can treat this project as a prototype system for Apache Storm.
 
 
 Architecture
 ============
 <pre>
-                                        +---------+
-                                        | Worker  |
-                   +------------+     / +---------+
+                                        +--------------------+
+                                        | Supervisor: Worker |
+                   +------------+     / +--------------------+
                    |  Zookeeper | ----
                    +------------+
-+---------+        +------------+       +---------+
-| Nimbus  | ---->  |  Zookeeper | ----  | Worker  |
-+---------+        +------------+       +---------+
++---------+        +------------+       +--------------------+
+| Nimbus  | ---->  |  Zookeeper | ----  | Supervisor: Worker |
++---------+        +------------+       +--------------------+
                    +------------+
-                   |  Zookeeper | ----  +---------+
-                   +------------+     \ | Worker  |
-                                        +---------+
+                   |  Zookeeper | ----  +--------------------+
+                   +------------+     \ | Supervisor: Worker |
+                                        +--------------------+
 </pre>
+
+Nimbus and Supervisor are fail-fast and stateless, and their state is kept in Zookeeper or on
+local disk(s).
 
 Nimbus
 ------
@@ -33,7 +38,8 @@ Nimbus is an Thrift service implemented by [Thriftpy](https://thriftpy.readthedo
 
 Supervisor
 ----------
-The supervisor runs on each node. It receives assignments from Nimbus and assign them to workers.
+The supervisor runs on each node. It receives assignments from Nimbus and then assign them to workers.
+It also monitors the health of the workers and respawns them if necessary.
 
 
 Internals
@@ -43,11 +49,9 @@ Internals
 https://github.com/apache/storm/blob/v1.0.0/storm-core/src/clj/org/apache/storm/daemon/acker.clj
 
 
-**Apache Storm Code Structure**
-http://storm.apache.org/releases/1.0.0/Structure-of-the-codebase.html
-
-
 References
 ----------
-+ [Apache Storm Homepage](http://storm.apache.org/)
++ [Storm Concepts](http://storm.apache.org/releases/1.0.0/Concepts.html)
++ [Storm Code Structure](http://storm.apache.org/releases/1.0.0/Structure-of-the-codebase.html)
 + Storm - Distributed and fault-tolerant realtime computation, Nathan Marz
++ Storm @ Twitter
