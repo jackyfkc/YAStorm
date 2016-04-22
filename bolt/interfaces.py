@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Refers to Apache Storm, storm/storm-core/src/jvm/org/apache/storm/task/
 """

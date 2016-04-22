@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Implementation of Storms's tuple data model
 """

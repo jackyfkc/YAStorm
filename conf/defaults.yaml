@@ -18,12 +18,10 @@
 ########### These all have default values as shown
 ########### Additional configuration goes into storm.yaml
 
-java.library.path: "/usr/local/lib:/opt/local/lib:/usr/lib"
-
 ### storm.* configs are general configurations
 # the local dir is where jars are kept
 storm.local.dir: "storm-local"
-storm.log4j2.conf.dir: "log4j2"
+
 storm.zookeeper.servers:
     - "localhost"
 storm.zookeeper.port: 2181
@@ -72,11 +70,11 @@ nimbus.inbox.jar.expiration.secs: 3600
 nimbus.code.sync.freq.secs: 120
 nimbus.task.launch.secs: 120
 nimbus.file.copy.expiration.secs: 600
-nimbus.topology.validator: "org.apache.storm.nimbus.DefaultTopologyValidator"
+nimbus.topology.validator: "storm.nimbus.DefaultTopologyValidator"
 topology.min.replication.count: 1
 topology.max.replication.wait.time.sec: 60
 nimbus.credential.renewers.freq.secs: 600
-nimbus.impersonation.authorizer: "org.apache.storm.security.auth.authorizer.ImpersonationAuthorizer"
+nimbus.impersonation.authorizer: "storm.security.auth.authorizer.ImpersonationAuthorizer"
 nimbus.queue.size: 100000
 scheduler.display.resource: false
 
@@ -89,7 +87,7 @@ ui.filter: null
 ui.filter.params: null
 ui.users: null
 ui.header.buffer.bytes: 4096
-ui.http.creds.plugin: org.apache.storm.security.auth.DefaultHttpCredentialsPlugin
+ui.http.creds.plugin: storm.security.auth.DefaultHttpCredentialsPlugin
 
 logviewer.port: 8000
 logviewer.childopts: "-Xmx128m"

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Definition of Spout and associated interfaces
 
@@ -27,7 +28,7 @@ class ISpout(object):
     Storm executes ack, fail, and next_tuple all on the same thread. This means
     that an implementor of an ISpout does not need to worry about
     concurrency issues between those methods. However, it also means that
-    an implementor must ensure that nextTuple is non-blocking: otherwise
+    an implementor must ensure that next_tuple is non-blocking: otherwise
     the method could block acks and fails that are pending to be processed.
     """
     def open(self, conf, context, collector):
@@ -107,3 +108,5 @@ class ISpout(object):
         :return: Void
         """
         raise NotImplementedError()
+
+
