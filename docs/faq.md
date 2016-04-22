@@ -2,10 +2,13 @@ Internals
 ---------
 + [xor vs reference counting]
 (https://groups.google.com/forum/#!searchin/storm-user/nathan$20marz/storm-user/pw2P8J0U9CQ/qJhZ96sMlH4J)
+> Reference counting does not work due to the asynchronus nature of Storm
+
 + [What happened when multiple bolts reading the same stream?]
 (https://groups.google.com/forum/#!searchin/storm-user/nathan$20marz/storm-user/qbbngzKQ0a0/dLc5MZhkT00J)
-Each bolt will get its own copy of that tuple, and each tuple is completely independent.
-Each bolt should ack their tuple
+
+> Each bolt will get its own copy of that tuple, and each tuple is completely independent.
+> Each bolt should ack their tuple
 
 Usage
 -----
