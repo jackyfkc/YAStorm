@@ -59,6 +59,8 @@ References
 ==========
 + [History of Apache Storm and lessons learned](http://nathanmarz.com/blog/history-of-apache-storm-and-lessons-learned.html)
 + [Storm Concepts](http://storm.apache.org/releases/1.0.0/Concepts.html)
-+ [Storm Code Structure](http://storm.apache.org/releases/1.0.0/Structure-of-the-codebase.html)
++ [Storm Codebase Structure](http://storm.apache.org/releases/1.0.0/Structure-of-the-codebase.html)
 + Storm - Distributed and fault-tolerant realtime computation, Nathan Marz
 + Storm @ Twitter
++ [Understanding Storm internal message buffers](http://www.michael-noll.com/blog/2013/06/21/understanding-storm-internal-message-buffers/)
++ [The Future of Apache Storm](http://www.slideshare.net/HadoopSummit/the-future-of-apache-storm-61340098?qid=8c9e6983-03e4-4cd6-8447-3fdc0b561e35&v=&b=&from_search=6)

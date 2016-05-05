@@ -1,4 +1,4 @@
-from spout import interfaces
+from topology.spout import interfaces
 
 
 class CheckpointSpout(interfaces.ISpout):
