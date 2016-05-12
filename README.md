@@ -1,7 +1,7 @@
 Writting...
 
 
-# PStorm
+# YAStorm
 
 A lightweight version of [Apache Storm](http://storm.apache.org/), purely written in Python;
 The primary reason of implementing this project is to make learning Storm much easier. The
