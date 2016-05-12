@@ -4,7 +4,7 @@ Writting...
 # PStorm
 
 A lightweight version of [Apache Storm](http://storm.apache.org/), purely written in Python;
-The primary reason of implementing this project is to make learning Storm much eaiser. The
+The primary reason of implementing this project is to make learning Storm much easier. The
 implementations refers to Apache Storm v1.0.0.
 
 You can treat this project as a prototype system for Apache Storm.
