@@ -1,3 +1,5 @@
 PyYAML
 thriftpy
-
+kazoo
+tornado
+futures
